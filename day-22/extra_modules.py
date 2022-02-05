@@ -27,11 +27,18 @@ class KeyHandler:
 
     def addkey(self, key, bind):
         self._run.append([key, bind])
-        def func():
-            if self._keys.count(key) > 0:
-                self._keys.remove(key)
-        self.screen.onkeypress(lambda: self._keys.append(key), key)
-        self.screen.onkeyrelease(func, key)
+
+        def modify(operation):
+            def func():
+                if operation is 'add':
+                    if self._keys.count(key) is 0:
+                        self._keys.append(key)
+                if operation is 'remove':
+                    if self._keys.count(key) > 0:
+                        self._keys.remove(key)
+            return func
+        self.screen.onkeypress(modify('add'), key)
+        self.screen.onkeyrelease(modify('remove'), key)
 
     def run(self):
         for run in self._run:
