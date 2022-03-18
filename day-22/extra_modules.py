@@ -37,8 +37,8 @@ class KeyHandler:
                     if self._keys.count(key) > 0:
                         self._keys.remove(key)
             return func
-        self.screen.onkeypress(modify('add'), key)
-        self.screen.onkeyrelease(modify('remove'), key)
+        self.screen.onkeypress(modify("add"), key)
+        self.screen.onkeyrelease(modify("remove"), key)
 
     def run(self):
         for run in self._run:
